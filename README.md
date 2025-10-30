@@ -9,11 +9,11 @@ The intent is to:
 - Learn blockchain fundamentals through practical development.
 - Experiment with how decentralized ownership and transactions function.
 - Create a project that demonstrates applied understanding of Web3 concepts.
-- Build something that addresses a real-world pain point and is worth showcasing to other developers and potential employers.
+- Build something that addresses a real-world pain point and is worth showcasing to other developers.
 
 ---
 
-## 💡 Project Idea
+## Project Idea
 
 **Web3 NFT Ticketing Demo**
 
@@ -27,7 +27,7 @@ This prototype represents an emerging use case for Web3 that could eventually ad
 
 ---
 
-## 🌟 Goals
+## Goals
 
 1. Understand how wallet connections, smart contracts, and NFTs interact.
 2. Deploy a minimal ERC-721 contract for minting and transferring event tickets.
@@ -36,7 +36,7 @@ This prototype represents an emerging use case for Web3 that could eventually ad
 
 ---
 
-## 🚨 Problems with Existing Ticket Solutions
+## Problems with Existing Ticket Solutions
 
 | Problem                         | Description                                                                                                      |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -51,7 +51,7 @@ This prototype represents an emerging use case for Web3 that could eventually ad
 
 ---
 
-## 🧩 How Web3 Could Help
+## How Web3 Could Help
 
 | Solution                     | What Web3 Enables                                                                 |
 | ---------------------------- | --------------------------------------------------------------------------------- |
@@ -63,7 +63,7 @@ This prototype represents an emerging use case for Web3 that could eventually ad
 
 ---
 
-## ⚙️ Planned Tech Stack
+## Planned Tech Stack
 
 - **Solidity** – Smart contract logic for NFT minting and resale rules
 - **Hardhat** – Local Ethereum dev environment
@@ -73,7 +73,7 @@ This prototype represents an emerging use case for Web3 that could eventually ad
 
 ---
 
-## 🦯 Roadmap
+## Roadmap
 
 1. **Phase 1:** Smart contract for minting & transferring NFT tickets
 2. **Phase 2:** Frontend for wallet connection and ticket management
@@ -83,12 +83,12 @@ This prototype represents an emerging use case for Web3 that could eventually ad
 
 ---
 
-## 🧠 Takeaway
+## Takeaway
 
 This project is designed to demonstrate technical curiosity and applied understanding of blockchain concepts. It serves as a practical exercise in decentralized app development and as a portfolio piece for discussing the strengths and limitations of Web3 systems with other engineers.
 
 ---
 
-## 🪙 License
+## License
 
 MIT — because learning should be open.
