@@ -22,6 +22,7 @@ import {
   EventTicketStruct,
   eventTicketAbi,
   eventTicketAddress,
+  isEventTicketConfigured,
 } from "@/lib/eventTicket";
 
 type FormNotice = {
@@ -57,6 +58,7 @@ export default function Home() {
   });
 
   const events = eventsQuery.data ?? [];
+  const contractReady = isEventTicketConfigured && !!eventTicketAddress;
   const selectedEvent = useMemo(() => {
     if (!mintForm.eventId) return undefined;
     try {
@@ -75,6 +77,15 @@ export default function Home() {
     event.preventDefault();
 
     if (!publicClient) return;
+
+    if (!contractReady) {
+      setCreateEventNotice({
+        label:
+          "Set NEXT_PUBLIC_EVENT_TICKET_ADDRESS in .env.local and restart the dev server.",
+        tone: "error",
+      });
+      return;
+    }
 
     setCreateEventNotice(undefined);
 
@@ -138,6 +149,15 @@ export default function Home() {
   const handleMintTicket = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!publicClient) return;
+
+    if (!contractReady) {
+      setMintNotice({
+        label:
+          "Set NEXT_PUBLIC_EVENT_TICKET_ADDRESS in .env.local and restart the dev server.",
+        tone: "error",
+      });
+      return;
+    }
 
     if (!mintForm.eventId) {
       setMintNotice({ label: "Select an event before minting.", tone: "error" });
@@ -280,6 +300,12 @@ export default function Home() {
                 Deploy events, mint passes, and inspect wallet ownership against the
                 local Hardhat chain without leaving the dashboard.
               </p>
+              {!contractReady && (
+                <p className="mt-2 text-sm text-rose-300">
+                  Contract address missing. Update `NEXT_PUBLIC_EVENT_TICKET_ADDRESS`
+                  and restart the Next.js server to interact with the chain.
+                </p>
+              )}
             </div>
             <div className="flex flex-col items-end gap-2">
               {isConnected ? (
@@ -338,7 +364,13 @@ export default function Home() {
             icon={<ShieldCheck className="h-4 w-4 text-emerald-300" />}
             label="Wallet status"
             value={isConnected ? "Connected" : "Disconnected"}
-            helper={status === "connecting" ? "Waiting for wallet…" : address ?? ""}
+            helper={
+              status === "connecting"
+                ? "Waiting for wallet…"
+                : contractReady
+                  ? address ?? ""
+                  : "Contract address not configured"
+            }
           />
         </section>
 
@@ -546,7 +578,9 @@ export default function Home() {
                 )}
                 <button
                   type="submit"
-                  disabled={isSubmittingTx || status !== "connected"}
+                    disabled={
+                      isSubmittingTx || status !== "connected" || !contractReady
+                    }
                   className="flex w-full items-center justify-center gap-2 rounded-2xl bg-white/20 px-4 py-3 text-base font-semibold text-white transition hover:bg-white/30 disabled:cursor-not-allowed disabled:bg-white/10"
                 >
                   {isSubmittingTx ? (
@@ -579,7 +613,9 @@ export default function Home() {
                 <div>
                   <h2 className="text-lg font-semibold">Live events</h2>
                   <p className="text-sm text-slate-300">
-                    Reading directly from {eventTicketAddress}
+                    {contractReady
+                      ? `Reading directly from ${eventTicketAddress}`
+                      : "Contract address not configured"}
                   </p>
                 </div>
                 <button
@@ -594,6 +630,10 @@ export default function Home() {
                   <Loader2 className="h-4 w-4 animate-spin" />
                   Fetching events…
                 </div>
+              ) : !contractReady ? (
+                <p className="text-sm text-rose-300">
+                  Add `NEXT_PUBLIC_EVENT_TICKET_ADDRESS` to .env.local to load events.
+                </p>
               ) : events.length ? (
                 <ul className="space-y-4">{events.map(renderEventRow)}</ul>
               ) : (
@@ -615,6 +655,10 @@ export default function Home() {
                   <Loader2 className="h-4 w-4 animate-spin" />
                   Fetching tickets…
                 </div>
+              ) : !contractReady ? (
+                <p className="text-sm text-rose-300">
+                  Add `NEXT_PUBLIC_EVENT_TICKET_ADDRESS` to .env.local to view tickets.
+                </p>
               ) : tickets.length ? (
                 <ul className="space-y-3">{tickets.map(renderTicketCard)}</ul>
               ) : (
