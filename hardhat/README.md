@@ -30,28 +30,50 @@ npx hardhat test solidity
 npx hardhat test nodejs
 ```
 
-### Make a deployment
+### Deploy EventTicket Contract
 
-To deploy contracts, you can create an Ignition module in the `ignition/modules/` directory. You can deploy modules to a locally simulated chain or to networks like Sepolia.
+This project includes an Ignition module at `ignition/modules/EventTicket.ts`. You can deploy the contract to a persistent local node or to Sepolia.
 
-To run a deployment to a local chain:
+#### Deploy to a persistent local Hardhat node
 
-```shell
-npx hardhat ignition deploy ignition/modules/YourModule.ts
-```
+1. **Terminal A** – start the node:
+   ```shell
+   npx hardhat node
+   ```
+   Leave this terminal running; it hosts the local blockchain.
+2. **Terminal B** – deploy to that node:
+   ```shell
+   npx hardhat ignition deploy --network localhost ignition/modules/EventTicket.ts
+   ```
+   Ignition will log the deployed contract address (for example `0x5FbD...0aa3`). Keep the node process running so the deployment persists.
 
-To run a deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
+> Quick one-off test: `npx hardhat ignition deploy ignition/modules/EventTicket.ts` spins up an ephemeral in-process chain. The deployment disappears once the command finishes, so use it only for throwaway tests.
 
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
+#### Deploy to Sepolia
 
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
+To deploy to Sepolia, you need funded test ETH and these config variables:
+
+- `SEPOLIA_PRIVATE_KEY` – the 64-hex-character private key of the account you will deploy from (MetaMask → Account Details → Export Private Key).
+- `SEPOLIA_RPC_URL` – your Sepolia RPC endpoint (Alchemy, Infura, QuickNode, etc.).
+
+Set them with `hardhat-keystore`:
 
 ```shell
 npx hardhat keystore set SEPOLIA_PRIVATE_KEY
+npx hardhat keystore set SEPOLIA_RPC_URL
 ```
 
-After setting the variable, you can run the deployment with the Sepolia network:
+Or export them as environment variables:
 
 ```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/YourModule.ts
+export SEPOLIA_PRIVATE_KEY=0xyourprivatekey
+export SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_PROJECT_ID
 ```
+
+Then deploy:
+
+```shell
+npx hardhat ignition deploy --network sepolia ignition/modules/EventTicket.ts
+```
+
+Save the contract address Ignition prints; you’ll use it in scripts and the frontend.
