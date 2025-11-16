@@ -34,6 +34,22 @@ npx hardhat test nodejs
 
 This project includes an Ignition module at `ignition/modules/EventTicket.ts`. You can deploy the contract to a persistent local node or to Sepolia.
 
+#### What’s inside `ignition/deployments/`
+
+Whenever you deploy with Hardhat Ignition, it saves deployment metadata under `ignition/deployments/<chain-id>/`. These files aren’t on-chain—they’re local records that help you (and scripts) keep track of what was deployed, where, and how.
+
+- `deployed_addresses.json` — mapping of module resources to the addresses they received. This is how scripts (like `scripts/check-local-node.ts`) discover the current contract address without hard-coding it.
+  ```json
+  {
+    "EventTicketModule#EventTicket": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+  }
+  ```
+- `artifacts/EventTicketModule#EventTicket.json` — a copy of the ABI, bytecode, and compiler metadata that Ignition used for this deployment. Frontends and scripts can import this artifact directly when connecting to the contract.
+- `journal.jsonl` — chronological log of the deployment process (tx hashes, nonces, gas data, status). Useful for auditing or replaying a deployment.
+- `build-info/*.json` — compiler configuration and sources hashed for verification.
+
+These files are optional for the blockchain, but essential for reproducibility: they let you prove exactly what code lives at a given address, automate interactions, and redeploy confidently on other networks.
+
 #### Deploy to a persistent local Hardhat node
 
 1. **Terminal A** – start the node:
