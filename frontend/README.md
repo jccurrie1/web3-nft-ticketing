@@ -44,5 +44,14 @@ Visit [http://localhost:3000](http://localhost:3000) to use the dashboard.
 
 ### Contract ABIs
 
-The ABI from Hardhat compilation lives at `src/contracts/EventTicket.json`.  
-Update it after contract changes (`cp ../hardhat/.../EventTicket.json src/contracts/EventTicket.json`).
+The ABI from Hardhat compilation lives at `src/contracts/EventTicket.json`.
+
+- Hardhat writes this artifact after `npx hardhat compile`, and it contains the ABI + bytecode for `EventTicket`.
+- Wagmi/Viem read that ABI so the React app knows how to encode function calls (e.g., `createEvent`, `mintTicket`) and decode returned structs.
+- Whenever the Solidity contract changes, copy the new artifact into the frontend:
+
+```bash
+cp ../hardhat/artifacts/contracts/EventTicket.sol/EventTicket.json src/contracts/EventTicket.json
+```
+
+If the ABI is missing or outdated, the dashboard can’t call the contract or may misinterpret responses.
