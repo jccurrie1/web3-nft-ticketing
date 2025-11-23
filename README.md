@@ -85,14 +85,6 @@ This prototype represents an emerging use case for Web3 that could eventually ad
 - `make update-env` — Refresh `frontend/.env.local` with the latest deployed contract address and default RPC URL.
 - `make start-web` — Run only the frontend dev server (assumes the node is already running and env vars are set).
 
-## Roadmap
-
-1. **Phase 1:** Smart contract for minting & transferring NFT tickets
-2. **Phase 2:** Frontend for wallet connection and ticket management
-3. **Phase 3:** Add resale logic with royalty splits
-4. **Phase 4:** Optional: Integrate IPFS for event images & metadata
-5. **Phase 5:** Documentation and short demo video
-
 ---
 
 ## Takeaway
