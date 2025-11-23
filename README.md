@@ -65,13 +65,21 @@ This prototype represents an emerging use case for Web3 that could eventually ad
 
 ## Planned Tech Stack
 
-- **Solidity** – Smart contract logic for NFT minting and resale rules
-- **Hardhat** – Local Ethereum dev environment
-- **React + ethers.js** – Frontend interface for wallet interaction
-- **Polygon (Testnet)** – Cheap, fast deployment network
-- **Pinata or Web3.Storage** – Optional IPFS for storing ticket metadata
+- **Solidity (`EventTicket`)** – On-chain storage of events and tickets with ERC721-style transfers and approvals.
+- **Hardhat 3 + Ignition** – Local Ethereum dev environment and deployments (artifacts under `hardhat/ignition/deployments/chain-31337`).
+- **Next.js 16 (App Router)** – React dashboard with Wagmi, Viem, React Query, and Tailwind CSS v4.
+- **Node.js 20+** – Tooling baseline for both the Hardhat and frontend workspaces.
+- **Makefile** – Convenience targets to run the node, deploy the contract, sync env vars, and start the UI.
 
 ---
+
+## Makefile shortcuts
+
+- `make start` — Start a Hardhat node, deploy `EventTicket` via Ignition, sync `frontend/.env.local`, and launch the Next.js dev server at `http://localhost:3000`.
+- `make start-node` — Launch only the local Hardhat node.
+- `make deploy-local` — Deploy `EventTicket` to the running local node and update the recorded address.
+- `make update-env` — Refresh `frontend/.env.local` with the latest deployed contract address and default RPC URL.
+- `make start-web` — Run only the frontend dev server (assumes the node is already running and env vars are set).
 
 ## Roadmap
 
