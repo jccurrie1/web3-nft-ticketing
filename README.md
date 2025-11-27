@@ -4,6 +4,13 @@
 
 ![NFT Ticketing Dashboard](./NFT%20Ticketing%20Dashboard.jpeg)
 
+## Demo Video
+
+<video controls width="640">
+  <source src="./NFT Dashboard Recording.mov" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ## Why Tho
 
 This project explores Web3 technology by building a simple decentralized application to understand how crypto infrastructure works in practice. The goal is to gain hands-on experience and evaluate where blockchain development adds real value — beyond hype or speculation.
