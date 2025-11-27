@@ -6,10 +6,7 @@
 
 ## Demo Video
 
-<video controls width="640">
-  <source src="./NFT Dashboard Recording.mov" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[▶️ Watch the demo on YouTube](https://youtu.be/RVDARytXXO0)
 
 ## Why Tho
 
